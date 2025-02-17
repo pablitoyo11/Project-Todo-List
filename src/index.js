@@ -1,13 +1,13 @@
 import "./styles.css";
 
 
-import { appendCalendarOnClick } from './calendarhandler';
+import * as ch from './calendarhandler';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  appendCalendarOnClick("mainCalendarContainer","dateMainCalendar");
+  ch.appendCalendarOnLoad("mainCalendarContainer","dateMainCalendar");
 });
 
 document.getElementById("dateMainCalendar").addEventListener('change', () => {
-    appendCalendarOnClick("mainCalendarContainer","dateMainCalendar");
+  ch.mainCalendarGenerateOnAction("mainCalendarContainer","dateMainCalendar");
   });

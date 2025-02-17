@@ -246,17 +246,17 @@ GRID
 }
 
 .selectedDay {
-  background-color: #fff382; /* Yellow background for the selected day */
-  border: 2px solid #ff8000; /* Orange border */
-  color: #000000; /* Black text color for contrast */
-  font-weight: bold; /* Make the text bold */
-  box-shadow: 0 0 10px rgba(255, 87, 34, 0.6); /* Soft orange shadow to give emphasis */
-  transition: all 0.3s ease; /* Smooth transition for any changes */
+  background-color: #fff382 !important; /* Yellow background for the selected day */
+  border: 2px solid #ff8000 !important; /* Orange border */
+  color: #000000 !important; /* Black text color for contrast */
+  font-weight: bold !important; /* Make the text bold */
+  box-shadow: 0 0 10px rgba(255, 87, 34, 0.6) !important; /* Soft orange shadow to give emphasis */
+  transition: all 0.3s ease !important; /* Smooth transition for any changes */
 }
 
 /* Optional: If you want a hover effect to make it feel interactive */
 .selectedDay:hover {
-  background-color: #ffd240; /* Darken background slightly on hover */
-  border-color: #b45a00; /* Keep the border color the same */
-  cursor: pointer; /* Show pointer on hover */
+  background-color: #ffd240 !important; /* Darken background slightly on hover */
+  border-color: #b45a00 !important; /* Keep the border color the same */
+  cursor: pointer !important; /* Show pointer on hover */
 }

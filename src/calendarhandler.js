@@ -8,9 +8,9 @@ function getSelectedDate(selectedDayInput) {
     else{
         const selectedDay = new Date(selectedDayInput);
     }*/
-    const year = selectedDay.getFullYear();
-    const month = String(selectedDay.getMonth() + 1).padStart(2, '0'); // Month is 0-based
-    const day = String(selectedDay.getDate()).padStart(2, '0');
+    const year = selectedDay.getUTCFullYear();
+    const month = String(selectedDay.getUTCMonth() + 1).padStart(2, '0'); // Month is 0-based
+    const day = String(selectedDay.getUTCDate()).padStart(2, '0');
     return { year, month, day };
 }
 
@@ -20,7 +20,7 @@ function addStyleSelectedDays(calendarId,selectedDayId) {
     allDays.forEach(day => {
         day.classList.remove('selectedDay');
     });
-    const selectedDayElement = calendarContainer.getElementById(selectedDayId);
+    const selectedDayElement = calendarContainer.querySelector(`#${selectedDayId}`);
     if (selectedDayElement) {
         selectedDayElement.classList.add('selectedDay');
     }
@@ -58,7 +58,7 @@ function generateCalendar(year,month){
             const calendarDays = document.createElement("div");
             calendarDays.setAttribute("class", "calendarDay");
             let dayNumber=startingDate.getDate()
-            calendarDays.setAttribute("id", `day${dayNumber}`);
+            calendarDays.setAttribute("id", `day${String(dayNumber).padStart(2, '0')}`);
             monthDaysDivArray.push(calendarDays);
             calendarDays.innerText = (dayNumber);
             startingDate.setDate(startingDate.getDate()+1);
@@ -126,16 +126,23 @@ function addStyleMainCalendar(calendarContainer) {
     return calendarContainer;
 }
 
-function appendCalendarOnClick(calendarId,dateInputId) {
+function appendCalendarOnLoad(calendarId) {
     let calendarElement = document.getElementById(calendarId);
-    let dateInputElement = document.getElementById(dateInputId);
-
-    let dateInputObj = getSelectedDate(dateInputElement.value) 
+    let dateInputObj = getSelectedDate(); 
     const generatedCalendar = generateCalendar(dateInputObj.year, dateInputObj.month);
     const styledCalendar = addStyleMainCalendar(generatedCalendar);
-
     calendarElement.innerHTML = '';
     calendarElement.appendChild(styledCalendar);
 }
 
-export {appendCalendarOnClick};
+function mainCalendarGenerateOnAction(calendarId,dateInputId) {
+    let calendarElement = document.getElementById(calendarId);
+    let dateInputElement = document.getElementById(dateInputId);
+    let dateInputObj = getSelectedDate(dateInputElement.value);
+    const generatedCalendar = generateCalendar(dateInputObj.year, dateInputObj.month);
+    const styledCalendar = addStyleMainCalendar(generatedCalendar);
+    calendarElement.innerHTML = '';
+    calendarElement.appendChild(styledCalendar);
+    addStyleSelectedDays(calendarId,`day${dateInputObj.day}`) 
+}
+export {appendCalendarOnLoad,mainCalendarGenerateOnAction};
