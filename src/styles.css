@@ -1,0 +1,261 @@
+/* styles.css */
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Basic Reset */
+:root {
+  --font-family: 'Arial', sans-serif;  
+  --primary-color: #3978c0; 
+  --alt-primary-color: #005cc5;
+  --secondary-color: #e55743;
+  --alt-secondary-color: #b31c08; 
+  --background-color: #f9f9f9;  
+  --hover-background: rgba(100, 0, 0, 0.1); 
+  --hover-alt-background: rgba(125, 218, 255, 0.5); 
+  --margin-big: 20px;
+  --margin-small: 7px; 
+  --font-content-small: 12px;
+  --font-content-big: 14px;
+}
+
+body {
+  background-color: white;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+  text-align: center; 
+  font-family: var(--font-family); 
+}
+
+h1 {
+  margin-top: var(--margin-big);
+  margin-bottom: 20px; 
+  font-family: var(--font-family); 
+  font-size: 3rem; 
+  font-weight: bold; 
+  color: var(--primary-color); 
+  text-transform: uppercase; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); 
+  letter-spacing: 2px; 
+  padding: var(--margin-small); 
+  border-radius: 5px; 
+  background-color: #f1f1f1; 
+}
+
+/* Task and Calendar container */
+.taskCalendarContainer {
+  margin: 12px auto;
+  overflow: hidden;
+  min-width: fit-content;
+  max-width: 70%;
+  text-align: center;
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: 2fr 3fr;
+  padding: 7px;
+  border: 0;
+  background: transparent;
+  color: var(--secondary-color);
+  border-radius: 0;
+  box-shadow: inset 0 0 0 2px currentcolor;
+  transition: background .8s ease;
+}
+.taskCalendarContainer >*{
+  max-width: 50%;
+}
+.taskCalendarContainer:hover {
+  background: var(--hover-background);
+}
+
+.taskCard, .calendar {
+  min-width: fit-content;
+  padding: var(--margin-small);
+  margin: var(--margin-small);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 100%;
+}
+.taskCard *, .calendar *{
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.projectDropdownBox {
+  color: var(--primary-color);
+}
+
+
+#projectDropdown {
+  color: var(--alt-primary-color);
+  field-sizing: content; 
+  padding: 5px;
+  margin: var(--margin-small) 0;
+  width: fit-content;
+  height: fit-content;
+}
+
+.taskCard {
+  margin: var(--margin-big) auto;
+  padding: var(--margin-small);
+  background-color: var(--background-color);
+  border: 1px solid var(--alt-primary-color);
+  /*border-radius: 10px;*/
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-family);
+  transition: background-color 0.3s;
+}
+
+.taskCard:hover {
+  background-color: var(--hover-alt-background);
+}
+
+.taskDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: var(--margin-big);
+  align-items: center;
+  box-sizing: border-box; 
+}
+
+.taskTitle, .taskProject {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: var(--primary-color);
+}
+.taskTitle {
+  font-size: var(--font-content-big);
+  grid-column: 1 / 3;
+}
+.taskProject {
+  font-size: var(--font-content-big);
+  grid-column: 3;
+}
+
+.taskDescription {
+  font-size: var(--font-content-small);
+  line-height: 1.4;
+  grid-column: 1 / 4;
+  /*margin-top: var(--margin-small);*/
+}
+
+.taskDueDate {
+  font-size: var(--font-content-small);
+  grid-column: 1 / 2;
+  text-align: left;
+  color: var(--secondary-color);
+}
+
+.taskPriority {
+  font-size: var(--font-content-big);
+  font-weight: bold;
+  grid-column: 2 / 3;
+  text-align: center;
+  color: var(--alt-primary-color);
+}
+
+.taskCompleted {
+  font-size: var(--font-content-small);
+  display: flex;
+  grid-column: 3 / 4;
+  text-align: right;
+  justify-content: space-between;
+  /*gap: var(--margin-small);*/
+}
+
+input[type="checkbox"] {
+  transform: scale(1.5);
+}
+
+/*
+TEST
+THINGS
+FOR
+GRID
+?
+*/
+#padre {
+  min-width: fit-content;
+  margin: 20px 10%;
+  border: 2px dotted red;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+}
+
+#izquierda, #derecha{
+  margin: 10px;
+  padding: 10px;
+  border: 2px dotted red;
+  min-width: fit-content;
+
+}
+
+#derecha{
+}
+
+#izquierda{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#jeje{
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  grid-column: 1 / 2;
+}
+#jojo{
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  grid-column: 2 / 3;
+}
+#hola{
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  grid-column: 1 / 3;
+}
+
+
+.calendarDaysContainer {
+  display: grid;
+  grid-template-columns: repeat(7, 50px); /* 7 equal columns */
+  grid-gap: 10px; /* Space between each day */
+  padding: 10px;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto; /* Center the grid container horizontally */
+  border: 2px solid #190394;
+  border-radius: 5px;
+  background-color: #d4ffff;
+}
+
+/* Style for each day */
+.calendarDay {
+  width: 50px; /* Fixed width for each day */
+  height: 50px; /* Fixed height for each day */
+  border: 1px solid #ccc;
+  background-color: #f6fff3;
+  font-weight: bold;
+}
+
+.selectedDay {
+  background-color: #fff382; /* Yellow background for the selected day */
+  border: 2px solid #ff8000; /* Orange border */
+  color: #000000; /* Black text color for contrast */
+  font-weight: bold; /* Make the text bold */
+  box-shadow: 0 0 10px rgba(255, 87, 34, 0.6); /* Soft orange shadow to give emphasis */
+  transition: all 0.3s ease; /* Smooth transition for any changes */
+}
+
+/* Optional: If you want a hover effect to make it feel interactive */
+.selectedDay:hover {
+  background-color: #ffd240; /* Darken background slightly on hover */
+  border-color: #b45a00; /* Keep the border color the same */
+  cursor: pointer; /* Show pointer on hover */
+}
