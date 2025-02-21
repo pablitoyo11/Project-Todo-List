@@ -9,34 +9,10 @@
 </head>
 <body>
   <h1>Todo List Project Odin</h1>
-  <div class="projectInfo">
-    <!-- Dropdown to select project titles -->
-    <div class="projectDropdownBox">
-      <label for="projectDropdown">Project:</label>
-      <select id="projectDropdown">
-        <option value="project-beta">Project Beta test</option>
-        <option value="project-beta">Project A</option>
-        <option value="project-beta"> tests</option>
-        <!-- The options will be added dynamically by JavaScript -->
-      </select>
-    </div>
-  </div>
+  
 
   <!-- Task and Calendar section  -->
   <div class="taskCalendarContainer">
-    <div class="taskCard">
-      <div class="taskDetails">
-        <span id="taskTitle" class="taskTitle">Task Title</span>
-        <span id="taskProject" class="taskProject">Project Name</span>
-        <p id="taskDescription" class="taskDescription">Task description goes here.</p>
-        <p id="taskDueDate" class="taskDueDate">MM/DD/YYYY</p>
-        <p id="taskPriority" class="taskPriority">High Medium Low</p>
-        <label for="completedCheckbox" class="taskCompleted">
-          Completed:
-          <input type="checkbox" id="completedCheckbox" />
-        </label>
-      </div>
-    </div>
     <div class="calendar" id="mainCalendar">
       <h3>Calendar</h3>
       <input type="date" id="dateMainCalendar"/>
@@ -63,7 +39,58 @@
         </div>
       </div>
     </div>
+    <div class="taskContainer" id="mainTaskContainer">
+      <div class="projectInfo">
+        <!-- dropdown to select project -->
+        <div class="projectDropdownBox">
+          <label for="projectDropdown">Project:</label>
+          <select id="projectDropdown">
+            <option value="project-beta">Project Beta test</option>
+            <option value="project-beta">Project A</option>
+            <option value="project-beta"> tests</option>
+            <!-- add options dynamically with JavaScript -->
+          </select>
+        </div>
+      </div>
+      <div id="taskTitleContainer" id="mainTaskTitleContainer">
+          <!-- add task titles with js according to project selected-->
+      </div>
+    </div>
   </div>
+  <form id="taskForm">
+    <div id="taskProjectDiv">
+        <label for="taskProjectInput" id="taskProjectLabel">Project Name:</label>
+        <input type="text" id="taskProjectInput" name="taskProject" class="taskProject" placeholder="Enter project name" required />
+    </div>
+    <div id="taskTitleDiv">
+        <label for="taskTitleInput" id="taskTitleLabel">Task Title:</label>
+        <input type="text" id="taskTitleInput" name="taskTitle" class="taskTitle" placeholder="Enter task title" required />
+    </div>
+    <div id="taskDueDateDiv">
+      <label for="taskDueDateInput" id="taskDueDateLabel">Due Date:</label>
+      <input type="date" id="taskDueDateInput" name="taskDueDate" class="taskDueDate" required />
+    </div>
+
+    <div id="taskDescriptionDiv">
+        <label for="taskDescriptionInput" id="taskDescriptionLabel">Description:</label>
+        <textarea id="taskDescriptionInput" name="taskDescription" class="taskDescription" placeholder="Enter task description" rows="4" required></textarea>
+    </div>
+    <div id="taskPriorityDiv">
+        <label for="taskPriorityInput" id="taskPriorityLabel">Priority:</label>
+        <select id="taskPriorityInput" name="taskPriority" class="taskPriority" required>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+    </div>
+    <div id="taskCompletedDiv">
+        <label for="completedCheckboxInput" id="completedCheckboxLabel">Completed:</label>
+        <input type="checkbox" id="completedCheckboxInput" name="completedCheckbox" />
+    </div>
+    <div id="taskSubmitBtnDiv">
+      <button type="submit" id="taskSubmitBtn">Save Task</button>
+    </div>
+  </form>
 
   <!-- Teste things, delete later  -->
   <div id="padre">
