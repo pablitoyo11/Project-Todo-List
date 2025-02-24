@@ -39,21 +39,25 @@
         </div>
       </div>
     </div>
-    <div class="taskContainer" id="mainTaskContainer">
+    <div class="projectTasksContainer" id="mainProjectTasksContainer">
       <div class="projectInfo">
         <!-- dropdown to select project -->
         <div class="projectDropdownBox">
           <label for="projectDropdown">Project:</label>
           <select id="projectDropdown">
-            <option value="project-beta">Project Beta test</option>
-            <option value="project-beta">Project A</option>
-            <option value="project-beta"> tests</option>
+            <option value="Project Beta test">Project Beta test</option>
+            <option value="Project A">Project A</option>
+            <option value="tests">tests</option>
             <!-- add options dynamically with JavaScript -->
           </select>
         </div>
       </div>
-      <div id="taskTitleContainer" id="mainTaskTitleContainer">
-          <!-- add task titles with js according to project selected-->
+      <div class="taskTitleContainer" id="mainTaskTitleContainer">
+        <div class="taskInfoListContainer">
+          <div class="taskTitleList">thuer asdaas ads asd dsay meeting</div>
+          <div class="taskDueDateList"> 205/45606/1</div>
+        </div>
+        <!-- add task titles with js according to project selected-->
       </div>
     </div>
   </div>
@@ -78,9 +82,9 @@
     <div id="taskPriorityDiv">
         <label for="taskPriorityInput" id="taskPriorityLabel">Priority:</label>
         <select id="taskPriorityInput" name="taskPriority" class="taskPriority" required>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
+            <option value="3">High</option>
+            <option value="2">Medium</option>
+            <option value="1">Low</option>
         </select>
     </div>
     <div id="taskCompletedDiv">

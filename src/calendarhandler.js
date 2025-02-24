@@ -40,13 +40,13 @@ function generateCalendar(year,month){
 
     const calendarYear = document.createElement("span");
     calendarYear.setAttribute("class", "calendarYearSpan");
-    calendarYear.innerText = year;
+    calendarYear.innerText = ` year: ${year}`;
     calendarContainer.appendChild(calendarYear);
     
 
     const calendarMonth = document.createElement("span");
     calendarMonth.setAttribute("class", "calendarMonthSpan");
-    calendarMonth.innerText = month;
+    calendarMonth.innerText = ` month: ${month}`;
     calendarContainer.appendChild(calendarMonth);
 
 
@@ -74,7 +74,7 @@ function generateCalendar(year,month){
         for (let index = 0; index < startingDayOfWeek; index++) {
             const calendarDays = document.createElement("div");
             calendarDays.setAttribute("class", "calendarDay");
-            calendarDays.setAttribute("id", `dayPreviousMonth`);
+            calendarDays.setAttribute("class", `dayPreviousMonth`);
             prevmonthDaysDivArray.push(calendarDays);
         }
         return prevmonthDaysDivArray;
@@ -92,57 +92,83 @@ function generateCalendar(year,month){
     return calendarContainer;
 }
 
-function addStyleMainCalendar(calendarContainer) {
-    const style = document.createElement('style');
-    style.innerHTML = `
-        .calendarYear {
-            color: var(--secondary-color);
-        }
 
-        .calendarMonth {
-            color: var(--secondary-color);
-        }
-
-        .calendarDay {
-            background-color: white;  
-            border: 2px solid black; 
-            padding: 10px;
-            margin: 5px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .calendarDay.prevMonth {
-            background-color: transparent;
-            border: 2px solid transparent; 
-        }
-
-        .selecteddayid {
-            background-color: yellow !important;
-            border: 2px solid orange !important;
-        }
-    `;
-    calendarContainer.append(style);
-    return calendarContainer;
-}
-
+/* 
+//useless now, working it around with mainCalendarGenerateOnAction
+//adding default date "today" and then generating calendar on that
 function appendCalendarOnLoad(calendarId) {
     let calendarElement = document.getElementById(calendarId);
     let dateInputObj = getSelectedDate(); 
     const generatedCalendar = generateCalendar(dateInputObj.year, dateInputObj.month);
-    const styledCalendar = addStyleMainCalendar(generatedCalendar);
     calendarElement.innerHTML = '';
-    calendarElement.appendChild(styledCalendar);
+    calendarElement.appendChild(generatedCalendar);
 }
+*/
 
 function mainCalendarGenerateOnAction(calendarId,dateInputId) {
     let calendarElement = document.getElementById(calendarId);
     let dateInputElement = document.getElementById(dateInputId);
     let dateInputObj = getSelectedDate(dateInputElement.value);
     const generatedCalendar = generateCalendar(dateInputObj.year, dateInputObj.month);
-    const styledCalendar = addStyleMainCalendar(generatedCalendar);
     calendarElement.innerHTML = '';
-    calendarElement.appendChild(styledCalendar);
+    calendarElement.appendChild(generatedCalendar);
     addStyleSelectedDays(calendarId,`day${dateInputObj.day}`) 
 }
-export {appendCalendarOnLoad,mainCalendarGenerateOnAction};
+
+
+
+
+const markCalendarDays = (calendarContainerId, calendateDate, dueDate) => {
+    const calendarContainer = document.getElementById(calendarContainerId);
+    const allDays = calendarContainer.querySelectorAll('.calendarDay');
+    let calendarDateObj = getSelectedDate(calendateDate);
+    let dueDateDateObj = getSelectedDate(dueDate);
+
+    
+        allDays.forEach(day => {
+            // remove any existing linedraw classes
+            let dayElementDay = parseInt(day.id.replace('day', ''));
+            day.classList.remove('lineDrawFirst', 'lineDraw', 'lineDrawLast');
+            if (dayElementDay ==  calendarDateObj.day){
+                day.classList.add('lineDrawFirst');
+            }
+            //same month and year
+            if (calendarDateObj.year == dueDateDateObj.year && calendarDateObj.month == dueDateDateObj.month) {
+                if (dayElementDay <=  dueDateDateObj.day && dayElementDay >=calendarDateObj.day){
+                    day.classList.add('lineDraw');
+                }
+
+                if (dayElementDay ==  dueDateDateObj.day){
+                    day.classList.remove('lineDrawFirst');
+                    day.classList.add('lineDrawLast');
+                }
+            }    
+            //previous months
+            if (calendarDateObj.year <= dueDateDateObj.year && calendarDateObj.month < dueDateDateObj.month) {
+                if (dayElementDay >=  calendarDateObj.day){
+                    day.classList.add('lineDraw');
+                }
+            }   
+
+        });   
+    
+
+/*
+      } else if (todayYear === dueYear && todayMonth < dueMonth) {
+        // If the task spans across months but the due date is in the future month
+        if (dayNumber === todayDay) {
+          day.classList.add('lineDrawFirst');
+        } else if (dayNumber === 30) { // Last day of the month
+          day.classList.add('lineDrawLast');
+        } else if (dayNumber > todayDay) {
+          day.classList.add('lineDraw');
+        }
+      }
+    });*/
+};
+
+
+
+
+/* not exporting cause it's not used anymore : appendCalendarOnLoad*/
+export {mainCalendarGenerateOnAction,markCalendarDays};
