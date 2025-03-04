@@ -113,4 +113,45 @@ function fillFormWithtask(taskArrayId){
 }
 
 
-export {Task,listProjectsByName,fillFormWithtask};
+function addTaskFromForm(formData) {
+    const formObject = {};
+    formData.forEach((value, key) => {
+        formObject[key] = value;
+    });
+
+    // add completed checkbox; if it's unchecked it doesn't exist, so we add it as default false
+    if (!('taskCompleted' in formObject)){
+        formObject.taskCompleted =  false;
+    }
+
+    new Task(
+        formObject.taskTitle, 
+        formObject.taskProject, 
+        formObject.taskDescription, 
+        formObject.taskDueDate, 
+        formObject.taskPriority, 
+        formObject.taskCompleted
+    );
+};
+
+function editTaskFromFormEdits(taskToEditId,formData){
+    let selectedTask = Task.tasksArray[taskToEditId];
+
+    const formObject = {};
+    formData.forEach((value, key) => {
+        formObject[key] = value;
+    });
+    if (!('taskCompleted' in formObject)){
+        formObject.taskCompleted =  false;
+    };
+
+    if (formObject.taskTitle != selectedTask.title) selectedTask.changeTitle(formObject.taskTitle);
+    if (formObject.taskProject != selectedTask.project) selectedTask.changeProject(formObject.taskProject);
+    if (formObject.taskDescription != selectedTask.description) selectedTask.changeDescription(formObject.taskDescription);
+    if (formObject.taskDueDate != selectedTask.dueDate) selectedTask.changeDueDate(formObject.taskDueDate);
+    if (formObject.taskPriority != selectedTask.priority) selectedTask.changePriority(formObject.taskPriority);
+    if (formObject.taskCompleted != selectedTask.completed) selectedTask.toggleCompleted();
+
+};
+
+export {Task,listProjectsByName,fillFormWithtask,addTaskFromForm,editTaskFromFormEdits};
