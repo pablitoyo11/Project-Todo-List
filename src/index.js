@@ -34,19 +34,50 @@ function taskEditBtnsetSave(){
   taskEditBtn.classList.add('saveThisEdit'); 
   taskEditBtn.textContent = "Save this edit";
 };
+
+
+function populateProjectDropdown() {
+  let projectNames = Task.allProjectNames();
+
+  const projectDropdown = document.getElementById('projectDropdown');
+  // Clear 
+  projectDropdown.innerHTML = '';
+
+  // Add base option
+  const defaultOption = document.createElement('option');
+  defaultOption.value = '';
+  defaultOption.innerText = 'Select a project';
+  projectDropdown.appendChild(defaultOption);
+
+  // Add options for all project names
+  projectNames.forEach(project => {
+      const option = document.createElement('option');
+      option.value = project;
+      option.innerText = project;
+      projectDropdown.appendChild(option);
+  });
+}
      
 document.addEventListener('DOMContentLoaded', () => {
   const today = new Date().toISOString().split('T')[0];
   dateMainCalendarElement.value = today;
   ch.mainCalendarGenerateOnAction("mainCalendarContainer","dateMainCalendar");
+  tm.loadTasksFromLocalStorage();
+  populateProjectDropdown();
 });
 
 dateMainCalendarElement.addEventListener('change', () => {
   ch.mainCalendarGenerateOnAction("mainCalendarContainer","dateMainCalendar");
 });
 
+document.getElementById('projectDropdown').addEventListener('mousedown', (e) => {
+  // Repopulate when click on selectDropDown
+  populateProjectDropdown();
+});
 document.getElementById("projectDropdown").addEventListener('change', (e) => {
+  // List Projects when someonething is selected
   tm.listProjectsByName(e.target.value);
+
 });
 
 document.getElementById("mainTaskTitleContainer").addEventListener('click', (e)=>{
@@ -96,6 +127,7 @@ taskEditBtn.addEventListener('click', function(){
   else if (taskEditBtn.classList.contains("saveThisEdit")){
     //save this edit:
     tm.editTaskFromFormEdits(selectedTaskId.getCurrentTaskId(),new FormData(document.querySelector('#taskForm')));
+    tm.saveTasksToLocalStorage();
     //clear
     taskEditBtnsetEdit();
     formElement.reset();
@@ -115,7 +147,8 @@ formElement.addEventListener("submit", (e)=>{
 
   //save tasks in local? in server? idk
   tm.addTaskFromForm(new FormData(document.querySelector('#taskForm')));
- 
+  tm.saveTasksToLocalStorage();
+
   //clear form
   formElement.reset();
   formElements.forEach(element => {
@@ -129,9 +162,11 @@ formElement.addEventListener("submit", (e)=>{
 
 
 
-  
+
 window.Task = tm.Task;
+let asd = Task.allProjectNames()
 // Create some tasks
+/*
 const task1 = new tm.Task("Task 1", "Project A", "Description for task 1", "2025-03-01", 3);
 const task2 = new tm.Task("Task 2", "Project A", "Description for task 2", "2025-03-05", 2);
 const task3 = new tm.Task("Task 3", "Project B", "Description for task 3", "2025-03-01", 1);
@@ -139,3 +174,4 @@ const task4 = new tm.Task("Task 4", "Project C", "Description for task 4", "2025
 const task5 = new tm.Task("Task 5", "Project A", "Description for task 5", "2025-03-01", 2);
 tm.listProjectsByName("Project A");
 
+*/

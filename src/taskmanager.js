@@ -1,6 +1,31 @@
 //creating a new task
 class Task {
     static tasksArray = []; //array to store  all tasks
+
+    static loadTasksFromLocalStorage() {
+        const localTasks = localStorage.getItem('tasks');
+        if (localTasks) {
+            try {
+                let tasksData = JSON.parse(localTasks);
+                Task.tasksArray = tasksData.map(taskData => new Task(
+                    taskData.title,
+                    taskData.project,
+                    taskData.description,
+                    taskData.dueDate,
+                    taskData.priority,
+                    taskData.completed
+                ));
+            } catch (error) {
+              console.error("Error parsing tasks from localStorage:", error);
+            }
+        }
+    }
+
+    static saveTasksToLocalStorage() {
+        localStorage.setItem('tasks', JSON.stringify(Task.tasksArray));
+        console.log("guardado");
+    }
+
     constructor (title,project,description,dueDate,priority){
     this.title = title;
     this.project = project;
@@ -70,7 +95,12 @@ class Task {
             }
             return true; //to avoid undefined
         });
-    }        
+    }   
+       
+    static allProjectNames(){
+        let projectNames = [...new Set(Task.tasksArray.map(task => task.project))];
+        return projectNames;
+    };
 
 }
 
@@ -99,10 +129,11 @@ function listProjectsByName(projectName) {
         return taskInfoListContainer;
     }; 
 
-}
+};
 
-function fillFormWithtask(taskArrayId){
-    let taskSelected=taskArrayId;
+
+function fillFormWithtask(taskSelected){
+   // let taskSelected=taskArrayId;//
     // fill the form with the selected task
     document.getElementById("taskProjectInput").value = taskSelected.project;
     document.getElementById("taskTitleInput").value = taskSelected.title;
@@ -154,4 +185,7 @@ function editTaskFromFormEdits(taskToEditId,formData){
 
 };
 
-export {Task,listProjectsByName,fillFormWithtask,addTaskFromForm,editTaskFromFormEdits};
+const loadTasksFromLocalStorage = Task.loadTasksFromLocalStorage;
+const saveTasksToLocalStorage = Task.saveTasksToLocalStorage;
+const allProjectNames = Task.allProjectNames;
+export {Task,listProjectsByName,fillFormWithtask,addTaskFromForm,editTaskFromFormEdits,loadTasksFromLocalStorage,saveTasksToLocalStorage,allProjectNames};
